@@ -77,3 +77,39 @@ def upload_attachment(path: str, noco_url: str,  base_id: str, table_id: str, ta
 
     print(r.status_code)
     print(r.json())
+
+
+ 
+def getdata(noco_url: str, table: str, fields: str, apikey: str) -> dict:
+
+    url = f"{noco_url}/api/v2/tables/{table}/records"
+
+    params = {
+        "fields": f"{fields}",
+    }
+    headers = {
+        "accept": "application/json",
+        "xc-token": f"{apikey}"
+    }
+
+    response = requests.get(url, params= params, headers= headers)
+
+
+    return response.json()
+
+def pushdata(noco_url: str, table: str, fields: str, apikey: str, data: dict) -> dict:
+
+    url = f"{noco_url}/api/v2/tables/{table}/records"
+
+    params = {
+        "fields": f"{fields}",
+    }
+    headers = {
+        "accept": "application/json",
+        "xc-token": f"{apikey}"
+    }
+
+    response = requests.post(url, params= params, headers= headers, json= data)
+
+
+    return response.json() 
